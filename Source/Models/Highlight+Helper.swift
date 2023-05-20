@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift
+//import RealmSwift
 
 /**
  HighlightStyle type, default is .Yellow.
@@ -87,33 +87,35 @@ extension Highlight {
     ///   - readerConfig: Current folio reader configuration.
     ///   - completion: Completion block.
     public func persist(withConfiguration readerConfig: FolioReaderConfig, completion: Completion? = nil) {
-        do {
-            let realm = try Realm(configuration: readerConfig.realmConfiguration)
-            realm.beginWrite()
-            realm.add(self, update: true)
-            try realm.commitWrite()
-            completion?(nil)
-        } catch let error as NSError {
-            print("Error on persist highlight: \(error)")
-            completion?(error)
-        }
+        
+        completion?(nil)
+//        do {
+//            let realm = try Realm(configuration: readerConfig.realmConfiguration)
+//            realm.beginWrite()
+//            realm.add(self, update: true)
+//            try realm.commitWrite()
+//            completion?(nil)
+//        } catch let error as NSError {
+//            print("Error on persist highlight: \(error)")
+//            completion?(error)
+//        }
     }
 
     /// Remove a Highlight
     ///
     /// - Parameter readerConfig: Current folio reader configuration.
     public func remove(withConfiguration readerConfig: FolioReaderConfig) {
-        do {
-            guard let realm = try? Realm(configuration: readerConfig.realmConfiguration) else {
-                return
-            }
-            try realm.write {
-                realm.delete(self)
-                try realm.commitWrite()
-            }
-        } catch let error as NSError {
-            print("Error on remove highlight: \(error)")
-        }
+//        do {
+//            guard let realm = try? Realm(configuration: readerConfig.realmConfiguration) else {
+//                return
+//            }
+//            try realm.write {
+//                realm.delete(self)
+//                try realm.commitWrite()
+//            }
+//        } catch let error as NSError {
+//            print("Error on remove highlight: \(error)")
+//        }
     }
 
     /// Remove a Highlight by ID
@@ -125,13 +127,13 @@ extension Highlight {
         var highlight: Highlight?
         let predicate = NSPredicate(format:"highlightId = %@", highlightId)
 
-        do {
-            let realm = try Realm(configuration: readerConfig.realmConfiguration)
-            highlight = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self).first
-            highlight?.remove(withConfiguration: readerConfig)
-        } catch let error as NSError {
-            print("Error on remove highlight by id: \(error)")
-        }
+//        do {
+//            let realm = try Realm(configuration: readerConfig.realmConfiguration)
+//            highlight = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self).first
+//            highlight?.remove(withConfiguration: readerConfig)
+//        } catch let error as NSError {
+//            print("Error on remove highlight by id: \(error)")
+//        }
     }
     
     /// Return a Highlight by ID
@@ -145,13 +147,13 @@ extension Highlight {
         var highlight: Highlight?
         let predicate = NSPredicate(format:"highlightId = %@", highlightId)
 
-        do {
-            let realm = try Realm(configuration: readerConfig.realmConfiguration)
-            highlight = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self).first
-            return highlight
-        } catch let error as NSError {
-            print("Error getting Highlight : \(error)")
-        }
+//        do {
+//            let realm = try Realm(configuration: readerConfig.realmConfiguration)
+//            highlight = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self).first
+//            return highlight
+//        } catch let error as NSError {
+//            print("Error getting Highlight : \(error)")
+//        }
 
         return highlight
     }
@@ -165,18 +167,18 @@ extension Highlight {
     public static func updateById(withConfiguration readerConfig: FolioReaderConfig, highlightId: String, type: HighlightStyle) {
         var highlight: Highlight?
         let predicate = NSPredicate(format:"highlightId = %@", highlightId)
-        do {
-            let realm = try Realm(configuration: readerConfig.realmConfiguration)
-            highlight = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self).first
-            realm.beginWrite()
-
-            highlight?.type = type.hashValue
-
-            try realm.commitWrite()
-            
-        } catch let error as NSError {
-            print("Error on updateById: \(error)")
-        }
+//        do {
+//            let realm = try Realm(configuration: readerConfig.realmConfiguration)
+//            highlight = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self).first
+//            realm.beginWrite()
+//
+//            highlight?.type = type.hashValue
+//
+//            try realm.commitWrite()
+//
+//        } catch let error as NSError {
+//            print("Error on updateById: \(error)")
+//        }
 
     }
 
@@ -194,14 +196,15 @@ extension Highlight {
             predicate = NSPredicate(format: "bookId = %@ && page = %@", bookId, page)
         }
 
-        do {
-            let realm = try Realm(configuration: readerConfig.realmConfiguration)
-            highlights = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self)
-            return (highlights ?? [])
-        } catch let error as NSError {
-            print("Error on fetch all by book Id: \(error)")
-            return []
-        }
+//        do {
+//            let realm = try Realm(configuration: readerConfig.realmConfiguration)
+//            highlights = realm.objects(Highlight.self).filter(predicate).toArray(Highlight.self)
+//            return (highlights ?? [])
+//        } catch let error as NSError {
+//            print("Error on fetch all by book Id: \(error)")
+//            return []
+//        }
+        return []
     }
 
     /// Return all Highlights
@@ -210,14 +213,15 @@ extension Highlight {
     /// - Returns: Return all Highlights
     public static func all(withConfiguration readerConfig: FolioReaderConfig) -> [Highlight] {
         var highlights: [Highlight]?
-        do {
-            let realm = try Realm(configuration: readerConfig.realmConfiguration)
-            highlights = realm.objects(Highlight.self).toArray(Highlight.self)
-            return (highlights ?? [])
-        } catch let error as NSError {
-            print("Error on fetch all: \(error)")
-            return []
-        }
+//        do {
+//            let realm = try Realm(configuration: readerConfig.realmConfiguration)
+//            highlights = realm.objects(Highlight.self).toArray(Highlight.self)
+//            return (highlights ?? [])
+//        } catch let error as NSError {
+//            print("Error on fetch all: \(error)")
+//            return []
+//        }
+        return []
     }
 }
 
